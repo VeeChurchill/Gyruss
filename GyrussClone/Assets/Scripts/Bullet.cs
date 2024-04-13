@@ -23,8 +23,11 @@ namespace Assets.Scripts
 
         private void OnTriggerEnter(Collider other)
         {
-            //Destroy bullet if center is reached
-            if (other.gameObject.GetComponent<EnemySpawner>()) Destroy(gameObject);
+            //Destroy bullet if center is reached or enemy is hit
+            if (other.gameObject.GetComponent<EnemySpawner>() || other.gameObject.GetComponent<EnemyController>())
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
