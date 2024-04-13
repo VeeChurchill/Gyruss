@@ -399,21 +399,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 409549301081991984, guid: 7b970d695ad11e04e89664032c9a5e96, type: 3}
-      propertyPath: _spawnRadius
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 409549301081991984, guid: 7b970d695ad11e04e89664032c9a5e96, type: 3}
       propertyPath: _uiController
       value: 
       objectReference: {fileID: 1290274887}
-    - target: {fileID: 409549301081991984, guid: 7b970d695ad11e04e89664032c9a5e96, type: 3}
-      propertyPath: _timeBetweenWavesInSeconds
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 409549301081991984, guid: 7b970d695ad11e04e89664032c9a5e96, type: 3}
-      propertyPath: _timeBetweenSpawnsInWaveInSeconds
-      value: 0.7
-      objectReference: {fileID: 0}
     - target: {fileID: 1264364337625940684, guid: 7b970d695ad11e04e89664032c9a5e96, type: 3}
       propertyPath: m_Name
       value: EnemySpawn

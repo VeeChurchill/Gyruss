@@ -1,50 +1,45 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour
+namespace Assets.Scripts
 {
-    [SerializeField] private int _minAmount = 2;
-    [SerializeField] private int _maxAmount = 10;
-    [SerializeField] private float _timeBetweenWavesInSeconds = 2f;
-    [SerializeField] private float _spawnRadius = 2f;
-    [SerializeField] private List<EnemyController> _enemyPrefabs = new List<EnemyController>();
-    [SerializeField] private float _timeBetweenSpawnsInWaveInSeconds = 0.5f;
-    [SerializeField] private UiController _uiController;
-
-    private float _timeSinceLastSpawn = 0;
-    private Coroutine _spawnCoroutine;
-
-    // Update is called once per frame
-    void FixedUpdate()
+    public class EnemySpawner : MonoBehaviour
     {
-        _timeSinceLastSpawn += Time.fixedDeltaTime;
+        [SerializeField] private EnemyController _enemyPrefab = null;
+        [SerializeField] private int _maxAmountEnemies = 10;
+        [SerializeField] private int _minAmountEnemies = 2;
+        [SerializeField] private float _timeBetweenSpawnsInWaveInSeconds = 0.5f;
+        [SerializeField] private float _timeBetweenWavesInSeconds = 2f;
+        [SerializeField] private UiController _uiController = null;
 
-        if(_timeSinceLastSpawn >= _timeBetweenWavesInSeconds && _spawnCoroutine == null)
+        private Coroutine _spawnCoroutine;
+        private float _timeSinceLastSpawn;
+
+        private void FixedUpdate()
         {
-            _spawnCoroutine = StartCoroutine(SpawnEnemyWave());
-        }
-    }
+            _timeSinceLastSpawn += Time.fixedDeltaTime;
 
-    private IEnumerator SpawnEnemyWave()
-    {
-        int amountToSpawn = Random.Range(_minAmount, _maxAmount + 1);
-        float angleToSpawn = Random.Range(0f, 360f);
-        
-        while (amountToSpawn > 0)
+            if (_timeSinceLastSpawn >= _timeBetweenWavesInSeconds && _spawnCoroutine == null)
+                _spawnCoroutine = StartCoroutine(SpawnEnemyWave());
+        }
+
+        private IEnumerator SpawnEnemyWave()
         {
-            //Select a random enemy to spawn
-            var index = Random.Range(0, _enemyPrefabs.Count);
+            var amountToSpawn = Random.Range(_minAmountEnemies, _maxAmountEnemies + 1);
 
-            var enemy = Instantiate(_enemyPrefabs[index]);
-            enemy.Initialize(transform.position, _spawnRadius, angleToSpawn, (reward) => _uiController.ChangeScore(reward));
-            amountToSpawn--;
+            while (amountToSpawn > 0)
+            {
+                var enemy = Instantiate(_enemyPrefab);
+                enemy.Initialize(transform.position, reward => _uiController.ChangeScore(reward));
+                amountToSpawn--;
 
-            // Wait until next spawn in wave
-            yield return new WaitForSeconds(_timeBetweenSpawnsInWaveInSeconds);
+                // Wait until next spawn in wave
+                yield return new WaitForSeconds(_timeBetweenSpawnsInWaveInSeconds);
+            }
+
+            _timeSinceLastSpawn = 0;
+            _spawnCoroutine = null;
+            yield return null;
         }
-        _timeSinceLastSpawn = 0;
-        _spawnCoroutine = null;
-        yield return null;
     }
 }

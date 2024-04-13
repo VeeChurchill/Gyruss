@@ -45,15 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 908b6bb98bf4fb84387df0f2f56387f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minAmount: 2
-  _maxAmount: 10
-  _timeBetweenWavesInSeconds: 2
-  _spawnRadius: 5
-  _enemyPrefabs:
-  - {fileID: 152509925662741024, guid: 09cf99ac04d49b544b6a92ce33deafb0, type: 3}
-  - {fileID: 152509925662741024, guid: 2aa4653934525ae4297948da141f899a, type: 3}
-  - {fileID: 152509925662741024, guid: be147ca20d948dd4b8e9262964283c61, type: 3}
-  _timeBetweenSpawnsInWaveInSeconds: 0.5
+  _enemyPrefab: {fileID: 152509925662741024, guid: 2aa4653934525ae4297948da141f899a, type: 3}
+  _maxAmountEnemies: 10
+  _minAmountEnemies: 2
+  _timeBetweenSpawnsInWaveInSeconds: 0.7
+  _timeBetweenWavesInSeconds: 4
+  _uiController: {fileID: 0}
 --- !u!135 &1485761885833782379
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -73,5 +70,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.2
   m_Center: {x: 0, y: 0, z: 0}

@@ -1,21 +1,18 @@
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+namespace Assets.Scripts
 {
-    [SerializeField] private Transform _targetTransform;
-    [SerializeField] private PlayerMovement _playerMovement;
-    [SerializeField] private PlayerCombat _playerCombat;
-
-    
-    void Awake()
+    public class PlayerController : MonoBehaviour
     {
-        _playerCombat.Initialize(_targetTransform);
-        _playerMovement.Initialize(_targetTransform);
-    }
+        [SerializeField] private PlayerCombat _playerCombat = null;
+        [SerializeField] private PlayerMovement _playerMovement = null;
+        [SerializeField] private Transform _targetTransform = null;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+
+        private void Awake()
+        {
+            _playerCombat.Initialize(_targetTransform);
+            _playerMovement.Initialize(_targetTransform);
+        }
     }
 }

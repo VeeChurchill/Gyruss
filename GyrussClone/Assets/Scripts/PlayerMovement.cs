@@ -1,36 +1,40 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour
+namespace Assets.Scripts
 {
-    [SerializeField] private float _angularSpeed = 2;
-    [SerializeField] private float _radius = 10;
-
-    private Transform _targetTransform;
-    private float _currentAngle = 0;
-    private float _direction = 0;
-
-    public void Initialize(Transform target)
+    public class PlayerMovement : MonoBehaviour
     {
-        _targetTransform = target;
-    }
+        [SerializeField] private float _angularSpeed = 2;
+        [SerializeField] private float _radius = 10;
 
-    void FixedUpdate()
-    {
-        float x = _targetTransform.position.x + Mathf.Cos(_currentAngle) * _radius;
-        float z = _targetTransform.position.z + Mathf.Sin(_currentAngle) * _radius;
+        private float _currentAngle;
+        private float _direction;
 
-        transform.position = new Vector3(x, 0, z);
+        private Transform _targetTransform;
 
-        // Rotate ship to look at center
-        transform.LookAt(_targetTransform.position);
+        public void Initialize(Transform target)
+        {
+            _targetTransform = target;
+        }
 
-        _currentAngle += _direction * _angularSpeed * Time.fixedDeltaTime;
-    }
+        private void FixedUpdate()
+        {
+            var x = _targetTransform.position.x + Mathf.Cos(_currentAngle) * _radius;
+            var z = _targetTransform.position.z + Mathf.Sin(_currentAngle) * _radius;
+
+            transform.position = new Vector3(x, 0, z);
+
+            // Rotate ship to look at center
+            transform.LookAt(_targetTransform.position);
+
+            _currentAngle += _direction * _angularSpeed * Time.fixedDeltaTime;
+        }
 
 
-    public void OnMovement(InputAction.CallbackContext context)
-    {
-        _direction = context.ReadValue<float>();
+        public void OnMovement(InputAction.CallbackContext context)
+        {
+            _direction = context.ReadValue<float>();
+        }
     }
 }

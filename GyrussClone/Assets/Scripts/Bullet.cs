@@ -1,37 +1,30 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Collider))]
-public class Bullet : MonoBehaviour
+namespace Assets.Scripts
 {
-    [SerializeField] private float speed = 2;
-
-    private Vector3 _direction;
-
-    public void Initialize(Vector3 target)
+    [RequireComponent(typeof(Collider))]
+    public class Bullet : MonoBehaviour
     {
-        _direction = (target - transform.position);
-        _direction.y = 0;
-        _direction.Normalize();
-    }
+        [SerializeField] private float _speed = 2;
 
-    private void FixedUpdate()
-    {
-        transform.position = transform.position + (_direction * speed * Time.fixedDeltaTime);
-    }
+        private Vector3 _direction;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        //Destroy enemy on hit and score points
-        if (other.gameObject.TryGetComponent(out EnemyController enemyController))
+        public void Initialize(Vector3 target)
         {
-            //enemyController.DestroyShip();
+            _direction = target - transform.position;
+            _direction.y = 0;
+            _direction.Normalize();
         }
 
-        //Destroy bullet if center is reached
-        if (other.gameObject.GetComponent<EnemySpawner>())
+        private void FixedUpdate()
         {
-            Destroy(gameObject);
+            transform.position += _direction * _speed * Time.fixedDeltaTime;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            //Destroy bullet if center is reached
+            if (other.gameObject.GetComponent<EnemySpawner>()) Destroy(gameObject);
         }
     }
-
 }

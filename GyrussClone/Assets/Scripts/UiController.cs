@@ -1,17 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UiController : MonoBehaviour
+namespace Assets.Scripts
 {
-    [SerializeField] private TMP_Text _text;
-
-    private int _score = 0;
-
-    public void ChangeScore(int amount)
+    public class UiController : MonoBehaviour
     {
-        _score += amount;
-        _text.text = "Score: " + _score;
+        [SerializeField] private TMP_Text _text = null;
+
+        private int _score;
+
+        public void ChangeScore(int amount)
+        {
+            _score += amount;
+            _text.text = "Score: " + _score;
+        }
     }
 }

@@ -118,7 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7500deadb77ded4ca9decc7557f91eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _angularSpeed: 2
-  _radiusIncrease: 0.2
-  _direction: 1
-  _reward: 100
+  _angleOfMovement: 100
+  _maxDistance: 10
+  _maxReward: 100
+  _minReward: 10
+  _speed: 4
